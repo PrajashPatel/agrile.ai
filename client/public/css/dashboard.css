@@ -1,0 +1,219 @@
+/* Inherit base styles from landing page */
+@import url('https://fonts.googleapis.com/css2?family=Lemon&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sour Gummy', Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4; /* Light background color */
+  color: #333; /* Dark text color */
+}
+
+.page {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgb(233, 248, 239);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
+}
+
+/* Header */
+.site-header {
+  background: linear-gradient(90deg, #4CAF50, #2E8B57);
+  color: white;
+  padding: 20px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 8px;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.site-header .logo a {
+  text-decoration: none;
+  font-family: 'Lemon', sans-serif; /* Increased font weight for boldness */
+  color: #333;
+  font-size: 28px;
+  font-weight: 750;
+  letter-spacing: 0.08rem;
+}
+
+/* Navigation */
+.nav-boxes {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+}
+
+.nav-box {
+  background-color: #154316;
+  color: white;
+  text-decoration: none;
+  padding: 10px 1.5rem;
+  border: solid 2px #000;
+  border-radius: 15px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.nav-box:hover {
+  background-color: #45a049;
+}
+
+/* Main Content */
+.features {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgb(241, 255, 237);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.features h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #2E8B57;
+}
+
+.features p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+form#crop-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form#crop-form label {
+  font-weight: bold;
+}
+
+form#crop-form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+form#crop-form button {
+  width: fit-content;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form#crop-form button:hover {
+  background-color: #388e3c;
+}
+
+/* Style for input fields */
+form input[type="text"],
+form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="file"]:focus {
+  border-color: #45a049;
+  box-shadow: 0 0 8px rgba(69, 160, 73, 0.5);
+  outline: none;
+}
+
+/* Style for submit buttons */
+form button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+form button[type="submit"]:active {
+  background-color: #3e8e41;
+  transform: scale(0.95);
+}
+
+/* Result */
+#result {
+  margin-top: 25px;
+}
+
+.result {
+  background-color: #d0f0c0;
+  border-left: 6px solid #4CAF50;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  color: #2e7d32;
+}
+
+.error {
+  background-color: #ffdada;
+  border-left: 6px solid #e53935;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  color: #c62828;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background: #333;
+  color: white;
+  margin-top: 40px;
+  border-radius: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features {
+    padding: 10px;
+  }
+
+  .nav-boxes {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  form#crop-form {
+    width: 100%;
+  }
+}

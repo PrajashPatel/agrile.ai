@@ -1,0 +1,29 @@
+<h2>🌾 Crop Recommendation</h2>
+<p>Provide the following details to get crop recommendations based on your data.</p>
+<form id="crop-form" action="/recommend-crop" method="POST">
+  <label for="pH_Value">pH Value:</label>
+  <input type="number" id="pH_Value" name="pH_Value" step="0.1" required />
+
+  <label for="Rainfall">Rainfall (mm):</label>
+  <input type="number" id="Rainfall" name="Rainfall" step="0.1" required />
+
+  <label for="Temperature">Temperature (°C):</label>
+  <input type="number" id="Temperature" name="Temperature" step="0.1" required />
+
+  <label for="Humidity">Humidity (%):</label>
+  <input type="number" id="Humidity" name="Humidity" step="0.1" required />
+
+  <button type="submit">Get Recommendation</button>
+</form>
+
+<div id="result">
+  <% if (locals.recommendedCrop) { %>
+    <div class="result">
+      <h3>✅ Recommended Crop: <%= recommendedCrop %></h3>
+    </div>
+  <% } else if (locals.error) { %>
+    <div class="error">
+      <p>❌ <%= error %></p>
+    </div>
+  <% } %>
+</div>

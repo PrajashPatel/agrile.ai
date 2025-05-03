@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CropWise Dashboard</title>
+  <link rel="stylesheet" href="/css/dashboard.css" />
+  <style>
+    .tab-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab-nav button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .tab-nav button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container">
+        <div class="logo"><a href="/dashboard">CropWise</a></div>
+        <nav>
+          <ul class="nav-boxes">
+            <li><a href="/dashboard" class="nav-box">Home</a></li> 
+            <li><a href="/logout" class="nav-box">Logout</a></li> 
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <section class="features">
+        <div class="tab-nav">
+          <button data-url="/crop/partial">🌾 Crop</button>
+          <button data-url="/weather/partial">☁️ Weather</button>
+          <button data-url="/disease/partial">🦠 Disease</button>
+        </div>
+
+        <section id="main-content">
+          <%- include('partials/crop-form') %>
+        </section>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 CropWise Advisor. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Load jQuery first -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Link dashboard.js -->
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

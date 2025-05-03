@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "name": "CropWise AI",
+  "version": "1.0.0",
+  "description": "AI-driven agriculture app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "marked": "^15.0.11",
+    "multer": "^1.4.5-lts.2",
+    "pandas": "^0.0.3"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {}
+}

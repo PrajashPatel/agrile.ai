@@ -1,0 +1,14 @@
+<div id="weather-result">
+  <% if (weatherData) { %>
+    <p><strong>City:</strong> <%= weatherData.name %></p>
+    <p><strong>Temperature:</strong> <%= weatherData.main.temp %>°C</p>
+    <p><strong>Condition:</strong> <%= weatherData.weather[0].description %></p>
+    <p><strong>Humidity:</strong> <%= weatherData.main.humidity %>%</p>
+    <div class="advice-section">
+      <h3>Farming Advice</h3>
+      <p><%- advice %></p>
+    </div>
+  <% } else { %>
+    <p>Weather data not available.</p>
+  <% } %>
+</div>

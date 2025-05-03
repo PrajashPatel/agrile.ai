@@ -1,0 +1,30 @@
+<% if (!locals.isAjax) { %>
+<h2>⚕️ Disease Detection</h2>
+<p>Upload a plant image to detect disease.</p>
+<form id="disease-form" action="/upload-image" method="POST" enctype="multipart/form-data">
+  <input type="file" name="image" accept="image/*" required />
+  <button type="submit">Detect</button>
+</form>
+<% } %>
+
+<div id="result">
+  <% if (locals.imageDescription) { %>
+    <div class="result">
+      <h3>📝 Disease Description:</h3>
+      <p><%= imageDescription %></p>
+    </div>
+  <% } %>
+
+  <% if (locals.advice) { %>
+    <div class="result">
+      <h3>🌿 Farming Advice:</h3>
+      <p><%- advice %></p>
+    </div>
+  <% } %>
+
+  <% if (locals.error) { %>
+    <div class="error">
+      <p>❌ <%= error %></p>
+    </div>
+  <% } %>
+</div>
