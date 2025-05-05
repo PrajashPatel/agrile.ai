@@ -145,9 +145,9 @@
     transition: 0.3s;
     overflow-x: hidden;
     box-sizing: border-box;
-    background-color: rgb(233, 248, 239); /* Optional: Add a background color for visibility */
+    background-color: #d1fbdfbf; /* Optional: Add a background color for visibility */
     border-radius: 8px; /* Optional: Add rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    box-shadow: 0 4px 10px rgb(0 0 0 / 24%); /* Optional: Add a subtle shadow */
   }
   
   /* Header styles */

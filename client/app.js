@@ -229,6 +229,7 @@ You are a plant disease identification expert.
 Image caption: "${basicCaption}"
 
 Based on the image, generate:
+what could be the possible disease to plant. and also,
 1. A short plant disease description (2-3 lines, avoid vague suggestions like "need more info").
 2. Detailed farming advice including likely causes, short-term solutions, and long-term prevention.
 

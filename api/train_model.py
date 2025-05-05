@@ -42,12 +42,12 @@ y_pred_test = model.predict(X_test)
 train_accuracy = accuracy_score(y_train, y_pred_train)
 test_accuracy = accuracy_score(y_test, y_pred_test)
 
-print("✅ Model training completed!")
-print(f"📈 Training Accuracy: {train_accuracy:.4f}")
-print(f"📊 Testing Accuracy: {test_accuracy:.4f}")
+# print("✅ Model training completed!")
+# print(f"📈 Training Accuracy: {train_accuracy:.4f}")
+# print(f"📊 Testing Accuracy: {test_accuracy:.4f}")
 
-print("\n📜 Classification Report on Test Data:")
-print(classification_report(y_test, y_pred_test))
+# print("\n📜 Classification Report on Test Data:")
+# print(classification_report(y_test, y_pred_test))
 
 # 6. Save the trained model
 MODEL_FILENAME = 'model.pkl'

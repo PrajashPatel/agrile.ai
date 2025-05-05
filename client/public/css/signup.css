@@ -1,4 +1,5 @@
 /* Signup Page Specific Styles */
+@import url('https://fonts.googleapis.com/css2?family=Lemon&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 .signup-container {
   background: url('../images/pexels-nc-farm-bureau-mark-2889442.jpg') no-repeat center center/cover; /* Adjusted path */
   display: flex;
@@ -158,7 +159,7 @@ body {
     transition: 0.3s;
     overflow-x: hidden;
     box-sizing: border-box;
-    background-color: rgb(233, 248, 239); /* Optional: Add a background color for visibility */
+    background-color: #d1fbdfbf; /* Optional: Add a background color for visibility */
     border-radius: 8px; /* Optional: Add rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
   }
