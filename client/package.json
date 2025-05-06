@@ -14,9 +14,9 @@
     "express": "^4.17.1",
     "marked": "^15.0.11",
     "multer": "^1.4.5-lts.2",
+    "node-fetch": "^3.3.2",
     "pandas": "^0.0.3"
   },
   "author": "Your Name",
-  "license": "MIT",
-  "devDependencies": {}
+  "license": "MIT"
 }

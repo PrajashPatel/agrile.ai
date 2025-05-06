@@ -5,7 +5,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import signupRouter from './routes/signup.js';
 import multer from 'multer';
-import { execFile } from 'child_process';
 import { router as weatherRoutes } from './routes/weather.js';
 import { marked } from 'marked';
 import dotenv from 'dotenv';
@@ -28,13 +27,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(express.static('public'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-const geminiApiKey = 'AIzaSyBb8QoxuBSsuw4Wl6KsI-UxW0NQL1BwZs4';
+const geminiApiKey = process.env.GEMINI_API_KEY;
 const flaskApiUrl = process.env.FLASK_API_URL;
 
 app.post('/weather', async (req, res) => {
@@ -53,14 +53,7 @@ app.post('/weather', async (req, res) => {
       day: 'numeric'
     });
 
-    const prompt = `Give plain text farming advice based on this weather:
-    City: ${city}
-    Date: ${today}
-    Temperature: ${weatherData.main.temp}°C
-    Humidity: ${weatherData.main.humidity}%
-    Condition: ${weatherData.weather[0].description}
-    
-    Avoid markdown formatting. Do not wrap content in code blocks or mention any specific past date. Just give clean, readable advice.`;
+    const prompt = `Give plain text farming advice based on this weather:\nCity: ${city}\nDate: ${today}\nTemperature: ${weatherData.main.temp}°C\nHumidity: ${weatherData.main.humidity}%\nCondition: ${weatherData.weather[0].description}\nAvoid markdown formatting. Do not wrap content in code blocks or mention any specific past date. Just give clean, readable advice.`;
 
     const advice = await getFarmingAdvice(prompt);
     res.render('partials/weather-result', { weatherData, advice });
@@ -109,7 +102,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/landing', (req, res) => {
-  res.render('landing'); 
+  res.render('landing');
 });
 
 app.get('/login', (req, res) => {
@@ -209,24 +202,14 @@ app.post('/recommend-crop', async (req, res) => {
 app.post('/upload-image', upload.single('image'), async (req, res) => {
   const rawPath = req.file.path;
   const imagePath = rawPath.replace(/\\/g, '/');
+  const imageBuffer = fs.readFileSync(imagePath);
+  const imageBase64 = imageBuffer.toString('base64');
 
-  execFile('python', ['caption.py', imagePath], async (err, stdout, stderr) => {
-    if (err) {
-      console.error('ExecFile error:', err.message);
-      return res.render('partials/disease', { 
-        imageDescription: '', 
-        advice: '', 
-        error: 'Python script error occurred.', 
-        isAjax: req.xhr 
-      });
-    }
-
-    const basicCaption = stdout.trim();
-
-    const geminiPrompt = `
+  const geminPrompt = `Analyze the following image and identify any plant disease if visible.\n\n1. Provide a short disease description (2-3 lines).\n2. Suggest short-term solutions and long-term prevention.\n\nRespond in the format:\n---\nDisease Description:\n<your description>\n\nAdvice:\n<your advice>\n---`;
+  const geminiPrompt = `
 You are a plant disease identification expert.
 
-Image caption: "${basicCaption}"
+analyze the image and provide a detailed response.
 
 Based on the image, generate:
 what could be the possible disease to plant. and also,
@@ -243,49 +226,65 @@ Advice:
 ---
     `;
 
-    try {
-      const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`,
-        {
-          contents: [{ parts: [{ text: geminiPrompt }] }]
-        },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
+  try {
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`,
+      {
+        contents: [
+          {
+            parts: [
+              {
+                inlineData: {
+                  mimeType: 'image/jpeg',
+                  data: imageBase64
+                }
+              },
+              {
+                text: geminiPrompt
+              }
+            ]
+          }
+        ]
+      },
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
 
-      const rawText = response.data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const rawText = response.data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-      const diseaseMatch = rawText.match(/Disease Description:\s*(.+?)\nAdvice:/s);
-      const adviceMatch = rawText.match(/Advice:\s*(.+)/s);
+    const diseaseMatch = rawText.match(/Disease Description:\s*(.+?)\nAdvice:/s);
+    const adviceMatch = rawText.match(/Advice:\s*(.+)/s);
 
-      const imageDescription = diseaseMatch ? diseaseMatch[1].trim() : basicCaption;
-      const rawAdvice = adviceMatch ? adviceMatch[1].trim() : 'No advice generated.';
+    const imageDescription = diseaseMatch ? diseaseMatch[1].trim() : 'No clear disease detected.';
+    const rawAdvice = adviceMatch ? adviceMatch[1].trim() : 'No advice generated.';
 
-      const advice = sanitizeAdvice(rawAdvice);
+    const advice = sanitizeAdvice(rawAdvice);
 
-      res.render('partials/disease', { 
-        imageDescription, 
-        advice, 
-        error: null, 
-        isAjax: req.xhr 
-      });
-    } catch (error) {
-      console.error('Gemini API error:', error.message);
-      res.render('partials/disease', {
-        imageDescription: basicCaption,
-        advice: '',
-        error: 'Failed to fetch advice from Gemini.',
-        isAjax: req.xhr
-      });
-    }
-  });
+    res.render('partials/disease', {
+      imageDescription,
+      advice,
+      error: null,
+      isAjax: req.xhr
+    });
+  } catch (error) {
+    console.error('Gemini API error:', error.message);
+    res.render('partials/disease', {
+      imageDescription: '',
+      advice: '',
+      error: 'Failed to fetch advice from Gemini.',
+      isAjax: req.xhr
+    });
+  }
 });
 
-// Ensure consistent rendering for AJAX requests
+// Middleware to set AJAX context
 app.use((req, res, next) => {
   res.locals.isAjax = req.xhr;
   next();
 });
 
+// 404 handler
 app.use((req, res) => {
   res.status(404).send('Sorry, that route does not exist.');
 });
