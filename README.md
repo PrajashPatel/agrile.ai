@@ -81,6 +81,7 @@ MIT
 
 ## Contact
 
-For questions or support, open an issue or contact [@PrajashPatel](https://github.com/PrajashPatel) or email: your-email@example.com
+For questions or support, open an issue or contact [@PrajashPatel](https://github.com/PrajashPatel) or email: PrajashPatel2004@gmail.com
+
 
 
