@@ -1,5 +1,6 @@
 /* Inherit base styles from landing page */
 @import url('https://fonts.googleapis.com/css2?family=Lemon&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+NSW:wght@100..400&display=swap');
 /* Reset some default styles */
 * {
   margin: 0;
@@ -194,6 +195,10 @@ form button[type="submit"]:active {
 
 /* Footer */
 footer {
+  font-family: "Playwrite AU NSW", cursive;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
   text-align: center;
   padding: 20px 0;
   background: #333;

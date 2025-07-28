@@ -1,5 +1,6 @@
 /* Login Page Specific Styles */
 @import url('https://fonts.googleapis.com/css2?family=Lemon&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+NSW:wght@100..400&display=swap');
 .login-container {
     background: url('../images/pexels-nc-farm-bureau-mark-2889442.jpg') no-repeat center center/cover; /* Same background as signup */
     display: flex;
@@ -307,6 +308,10 @@
   
   /* Footer styles */
   footer {
+  font-family: "Playwrite AU NSW", cursive;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
     text-align: center;
     padding: 20px 0;
     background: #333;
